@@ -1,0 +1,35 @@
+* Daily Record
+
+A tool designed to help you keep track of what you work on and when.
+
+This tool parsers your notes and builds a personal knowledge-base that
+is designed to help you manage your work and personal life.
+
+** Tools
+
+Daily record uses Pandoc to parse a folder of notes. It then builds a
+database based on Datalog that allows you to query for
+information. Everything is built on GraalVM to ensure its fast. All
+configuration is done in YAML.
+
+- [[https://pandoc.org/][Pandoc]]
+- [[https://www.graalvm.org/][GraalVM]]
+- [[https://github.com/juji-io/datalevin][Datalog]]
+- [[https://yaml.org/][YAML]]
+- [[https://github.com/charmbracelet/gum][Gum]]
+
+** Installation
+
+If you have homebrew, you can install the dependences via homebrew
+
+#+BEGIN_SRC bash
+brew install daily-record
+
+#+END_SRC
+
+
+
+#+BEGIN_SRC bash
+brew bundle
+bb build-cli
+#+END_SRC
