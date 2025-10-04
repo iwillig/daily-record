@@ -18,18 +18,22 @@ configuration is done in YAML.
 - [[https://yaml.org/][YAML]]
 - [[https://github.com/charmbracelet/gum][Gum]]
 
-** Installation
+** DONE Installation for development
 
 If you have homebrew, you can install the dependences via homebrew
+
+
+#+BEGIN_SRC bash
+brew bundle  ## Install via homebrew
+sdk env      ## Install GraalVM
+bb build-cli ## Build local binrary for project
+#+END_SRC
+
+
+** TODO Install via homebrew
+
 
 #+BEGIN_SRC bash
 brew install daily-record
 
-#+END_SRC
-
-
-
-#+BEGIN_SRC bash
-brew bundle
-bb build-cli
 #+END_SRC
