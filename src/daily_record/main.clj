@@ -2,4 +2,5 @@
   (:gen-class))
 
 (defn -main [& args]
-  (println args))
+  (let [args args]
+    (println args)))
