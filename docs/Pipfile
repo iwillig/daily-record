@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pypandoc = "*"
+pandoc-numbering = "*"
+pandoc-include = "*"
+pandoc-plantuml-filter = "*"
+watchfiles = "*"
+
+[dev-packages]
+ruff = "*"
+
+[requires]
+python_version = "3.13"

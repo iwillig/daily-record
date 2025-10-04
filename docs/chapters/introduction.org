@@ -1,0 +1,73 @@
+#+TITLE: Introduction
+#+AUTHOR: Ivan Willig
+
+* Introduction
+
+Welcome to Docs for Daily Record! This is the introduction chapter of your documentation.
+
+** Getting Started
+
+This documentation was created using the Pandoc Documentation Tool, which provides:
+
+- Org-mode support for writing
+- Automatic HTML generation
+- Grammar checking capabilities
+- Beautiful CSS styling with Pico.css
+
+** Writing Your Documentation
+
+You can write your documentation in org-mode format. Here are some examples:
+
+*** Text Formatting
+
+- *Bold text* using asterisks
+- /Italic text/ using forward slashes  
+- _Underlined text_ using underscores
+- +Strikethrough+ using plus signs
+- =verbatim= using equals signs
+- ~code~ using tildes
+
+*** Lists
+
+**** Unordered Lists
+- First item
+- Second item
+  - Nested item
+  - Another nested item
+- Third item
+
+**** Ordered Lists
+1. First step
+2. Second step
+3. Third step
+
+*** Code Blocks
+
+#+BEGIN_SRC python
+def hello_world():
+    print("Hello, Docs for Daily Record!")
+#+END_SRC
+
+*** Links
+
+- [[https://www.example.com][External link]]
+- [[#section-id][Internal link]]
+
+** Building Your Documentation
+
+To build your documentation, simply run:
+
+#+BEGIN_SRC bash
+make
+#+END_SRC
+
+This will generate =index.html= with all your content.
+
+** Next Steps
+
+1. Add more chapters in the =chapters/= directory
+2. Update =metadata.yml= to include new chapters in the sections list
+3. Run =make serve= to preview your documentation locally
+4. Use =make grammar= to check for grammar issues (if enabled)
+
+Happy writing!

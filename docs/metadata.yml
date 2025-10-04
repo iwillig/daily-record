@@ -1,0 +1,12 @@
+title: "Docs for Daily Record"
+author: "Ivan Willig"
+email: "iwillig@gmail.com"
+description: "A brief description of your documentation project"
+lang: "en-US"
+toc-title: "Table of Contents"
+sections:
+  - chapters/introduction.org
+css:
+  - css/pico.min.css
+  - css/docs.css
+  - css/highlighting.css
