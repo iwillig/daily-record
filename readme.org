@@ -1,6 +1,6 @@
 * Daily Record
 
-A tool designed to help you keep track of what you work on and when.
+A tool for managing your work and knowledge.
 
 This tool parsers your notes and builds a personal knowledge-base that
 is designed to help you manage your work and personal life.
