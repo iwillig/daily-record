@@ -58,6 +58,7 @@
                            "--initialize-at-build-time"
                            "--initialize-at-run-time=sun.awt.X11.XWM"
                            "--initialize-at-run-time=sun.awt.X11.XWindow"
+                           "--initialize-at-run-time=sun.awt.X11.XSystemTrayPeer"
                            "-jar" "target/daily-record.jar"])}
 
   build-cli {:doc "Rebuild Command Line Tool"
