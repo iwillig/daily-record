@@ -67,7 +67,6 @@
    (load-config default-config-file-path))
   ([config-file-path]
    (monad/mlet [config-info (load-yaml-file config-file-path)]
-     (println :load-config [config-file-path config-info])
      (monad/return (map->ConfigInfo (assoc config-info
                                            :config-file-dir-path
                                            default-config-path

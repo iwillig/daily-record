@@ -31,12 +31,23 @@
   (println (banner))
   (println))
 
-(defn -main [& _args]
+
+(defn handle-monad-result
+  [result]
+  (println result))
+
+
+(defn load-config-db
+  []
   (monad/mlet [config (config/load-project-config)
                db     (db/connection config)]
+
     (print-banner)
     (output/callout {::output/type :info
                      ::output/message-str "Loading Config"})
     (output/print-structure config)
-    (println db)
-    config))
+    (monad/return [config db])))
+
+
+(defn -main [& _args]
+  (handle-monad-result (load-config-db)))
