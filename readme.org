@@ -12,6 +12,9 @@ database based on Datalog that allows you to query for
 information. Everything is built on GraalVM to ensure its fast. All
 configuration is done in YAML.
 
+We expose a query language and full text search for documents that you
+create.
+
 - [[https://pandoc.org/][Pandoc]]
 - [[https://www.graalvm.org/][GraalVM]]
 - [[https://github.com/juji-io/datalevin][Datalog]]

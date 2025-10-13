@@ -1,5 +1,6 @@
 (ns daily-record.config
   (:require [malli.core :as m]
+            [clojure.string :as str]
             [clj-yaml.core :as yaml]
             [cats.core :as monad]
             [cats.monad.exception :as monad.exception]
@@ -7,10 +8,24 @@
 
 (def ConfigInfoSpec
   [:map {:closed true}
-   [:days-folder    :string]
-   [:source         [:enum :file :default]]
-   [:db-path        :string]
-   [:templates-path :string]])
+   [:days-folder          :string]
+   [:config-file          [:optional true] :any]
+   [:config-file-dir-path [:optional true] :any]
+   [:source               [:enum :file :default]]
+   [:db-path              :string]
+   [:templates-path       :string]])
+
+(defn db-path-vec
+  [config-info]
+  (into
+   (get config-info :config-file-dir-path)
+   [(get config-info :db-path)]))
+
+(defn db-path-string
+  [config-info]
+  (str/join
+   "/"
+   (db-path-vec config-info)))
 
 (defrecord ConfigInfo [days-folder source db-path templates-path])
 
@@ -34,7 +49,7 @@
   [config-path]
   (let [file (file-from-path-seq config-path)]
     (when-not (.exists file)
-     (.mkdirs file))))
+      (.mkdirs file))))
 
 (defn parse-yaml-string
   [string]
@@ -52,7 +67,11 @@
    (load-config default-config-file-path))
   ([config-file-path]
    (monad/mlet [config-info (load-yaml-file config-file-path)]
-     (monad/return (map->ConfigInfo config-info)))))
+     (println :load-config [config-file-path config-info])
+     (monad/return (map->ConfigInfo (assoc config-info
+                                           :config-file-dir-path
+                                           default-config-path
+                                           :config-file config-file-path))))))
 
 (defn detect-config-path
   [])

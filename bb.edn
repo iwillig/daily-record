@@ -78,7 +78,7 @@
      (bling/callout
       {:type :info}
       (bling/bling [:bold "Running nRepl"]))
-     (clojure "-M:jvm-base:dev:nrepl"))}
+     (clojure "-M:jvm-base:dev:test:nrepl"))}
 
   fmt
   {:doc "Fix format clojure code"
