@@ -4,5 +4,7 @@
 
 (defn command
   [& args]
-  (let [focus (b/gum :input :placeholder "What is your focus for the day?")]
+  (output/callout {::output/type "info"
+                   ::output/message-str "What is your focus for the day?"})
+  (let [focus (b/gum :input :placeholder "Focus")]
     (println args focus)))
