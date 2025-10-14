@@ -1,6 +1,6 @@
 (ns daily-record.main
   (:gen-class)
-  (:require [cats.core :as monad]
+  (:require
             [clojure.pprint :as pp]
             [bling.banner :as bling.banner]
             [bling.fonts.ansi-shadow :refer [ansi-shadow]]
@@ -10,6 +10,9 @@
             [daily-record.sub-commands.start-day :as start-day]
             [daily-record.sub-commands.end-day   :as end-day]
             [cli-matic.core :as cli]
+            [cats.core :as monad]
+            [cats.monad.either :as either]
+            [cats.monad.maybe :as maybe]
             [bblgum.core :as b]))
 
 (set! *warn-on-reflection* true)
@@ -37,7 +40,16 @@
 
 (defn handle-monad-result
   [result]
-  (println result))
+  (cond
+    (maybe/maybe? result)
+    (if (maybe/nothing? result)
+      1 0)
+    (either/either? result)
+    (either/branch result
+                   (constantly 1)
+                   (constantly 0))
+    (nil? result) 1
+    :else 0))
 
 
 (defn load-config-db

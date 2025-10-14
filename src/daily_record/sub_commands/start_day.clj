@@ -1,7 +1,8 @@
 (ns daily-record.sub-commands.start-day
-  (:require [bling.banner :as bling.banner]
+  (:require [daily-record.output :as output]
             [bblgum.core :as b]))
 
 (defn command
   [& args]
-  (println args))
+  (let [focus (b/gum :input :placeholder "What is your focus for the day?")]
+    (println args focus)))
