@@ -7,7 +7,10 @@
             [daily-record.db     :as db]
             [daily-record.output :as output]
             [daily-record.config :as config]
-            [daily-record.pandoc :as pandoc]))
+            [daily-record.sub-commands.start-day :as start-day]
+            [daily-record.sub-commands.end-day   :as end-day]
+            [cli-matic.core :as cli]
+            [bblgum.core :as b]))
 
 (set! *warn-on-reflection* true)
 
@@ -48,6 +51,17 @@
     (output/print-structure config)
     (monad/return [config db])))
 
+(def config-cli
+  {:command     "daily-record"
+   :description "A command line tool for managing your day"
+   :version     "0.0.1"
+   :subcommands [{:command     "start-day"
+                  :description "A command to start your day"
+                  :runs        start-day/command}
 
-(defn -main [& _args]
-  (handle-monad-result (load-config-db)))
+                 {:command     "end-day"
+                  :description "A command to end your day"
+                  :runs        end-day/command}]})
+
+(defn -main [& args]
+  (cli/run-cmd args config-cli))
