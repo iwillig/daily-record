@@ -4,16 +4,16 @@
             [clojure.pprint :as pp]
             [bling.banner :as bling.banner]
             [bling.fonts.ansi-shadow :refer [ansi-shadow]]
-            [daily-record.db     :as db]
-            [daily-record.output :as output]
-            [daily-record.config :as config]
+            [daily-record.context :as context]
+            [daily-record.db      :as db]
+            [daily-record.output  :as output]
+            [daily-record.config  :as config]
             [daily-record.sub-commands.start-day :as start-day]
             [daily-record.sub-commands.end-day   :as end-day]
             [cli-matic.core :as cli]
             [cats.core :as monad]
             [cats.monad.either :as either]
-            [cats.monad.maybe :as maybe]
-            [bblgum.core :as b]))
+            [cats.monad.maybe :as maybe]))
 
 (set! *warn-on-reflection* true)
 
@@ -51,17 +51,19 @@
     (nil? result) 1
     :else 0))
 
+(defn print-hello
+  [config]
+  (print-banner)
+  (output/callout {::output/type :info
+                   ::output/message-str "Loading Config"})
+  (output/print-structure config))
 
 (defn load-config-db
   []
   (monad/mlet [config (config/load-project-config)
                db     (db/connection config)]
-
-    (print-banner)
-    (output/callout {::output/type :info
-                     ::output/message-str "Loading Config"})
-    (output/print-structure config)
-    (monad/return [config db])))
+    (monad/return
+     (context/map->Context {:db db :config config}))))
 
 (def config-cli
   {:command     "daily-record"
