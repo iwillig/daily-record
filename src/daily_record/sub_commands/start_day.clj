@@ -1,5 +1,5 @@
 (ns daily-record.sub-commands.start-day
-  "Command to start a day record"
+  "Command to start a day record."
   (:require [daily-record.output :as output]
             [bblgum.core :as b]))
 

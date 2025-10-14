@@ -1,7 +1,7 @@
 (ns daily-record.context
   "Namespace to capture the core Context object")
 
-(defrecord Context [db config])
+(defrecord Context [db config cli-args])
 
 (alter-meta! #'->Context assoc :doc "The primary app context object")
 

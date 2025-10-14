@@ -8,8 +8,9 @@
             [daily-record.db      :as db]
             [daily-record.output  :as output]
             [daily-record.config  :as config]
-            [daily-record.sub-commands.start-day :as start-day]
-            [daily-record.sub-commands.end-day   :as end-day]
+            [daily-record.sub-commands.start-day  :as start-day]
+            [daily-record.sub-commands.end-day    :as end-day]
+            [daily-record.sub-commands.get-config :as get-config]
             [cli-matic.core :as cli]
             [cats.core :as monad]
             [cats.monad.either :as either]
@@ -37,8 +38,14 @@
   (println (banner))
   (println))
 
+(defn load-config-db
+  []
+  (monad/mlet [config (config/load-project-config)
+               db     (db/connection config)]
+    (monad/return
+     (context/map->Context {:db db :config config}))))
 
-(defn handle-monad-result
+(defn handle-result
   [result]
   (cond
     (maybe/maybe? result)
@@ -51,6 +58,13 @@
     (nil? result) 1
     :else 0))
 
+(defn handle-monad-result
+  [command-fn]
+  (fn [& args]
+    (handle-result
+     (monad/mlet [context (load-config-db)]
+       (command-fn (assoc context :cli-args args))))))
+
 (defn print-hello
   [config]
   (print-banner)
@@ -58,12 +72,7 @@
                    ::output/message-str "Loading Config"})
   (output/print-structure config))
 
-(defn load-config-db
-  []
-  (monad/mlet [config (config/load-project-config)
-               db     (db/connection config)]
-    (monad/return
-     (context/map->Context {:db db :config config}))))
+
 
 (def config-cli
   {:command     "daily-record"
@@ -71,11 +80,14 @@
    :version     "0.0.1"
    :subcommands [{:command     "start-day"
                   :description "A command to start your day"
-                  :runs        start-day/command}
+                  :runs        (handle-monad-result start-day/command)}
 
                  {:command     "end-day"
                   :description "A command to end your day"
-                  :runs        end-day/command}]})
+                  :runs        (handle-monad-result end-day/command)}
+                 {:command    "get-config"
+                  :description "Loads the current configuration system for the project"
+                  :runs        (handle-monad-result get-config/command)}]})
 
 (defn -main [& args]
   (cli/run-cmd args config-cli))

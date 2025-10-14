@@ -17,7 +17,6 @@
 (defn connection
   [config]
   (monad.exception/try-on
-   #_(throw (ex-info "Something went wrong" {}))
    (d/get-conn
     (config/db-path-string config)
     schema)))
